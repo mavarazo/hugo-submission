@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import { loggerConfig } from '../configs/logger.configs';
 import { verifyHMACToken } from '../utils/token.functions';
 import { config } from '../configs/config';
-import { sendMail } from '../services/mail.services';
+import { getSubject, getTemplate, sendMail } from '../services/mail.services';
 
 export const saveSubmission = function (
   req: Request,
@@ -32,8 +32,7 @@ export const saveSubmission = function (
   }
 
   const clean = (({ token, website, ...rest }) => rest)(data);
-
-  sendMail(config, 'New submission', JSON.stringify(clean)).then(() =>
+  sendMail(config, getSubject(clean), getTemplate(clean)).then(() =>
     loggerConfig.info('Send submission email successfully.'),
   );
 
