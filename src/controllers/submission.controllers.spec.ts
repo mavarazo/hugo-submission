@@ -44,7 +44,7 @@ describe('Submission Controller', () => {
     }),
   );
 
-  it('should save submission', async () => {
+  it('should save submission "general"', async () => {
     // arrange
     const token = generateHMACToken(
       Math.floor(Date.now() / 1000) - 5,
@@ -59,6 +59,27 @@ describe('Submission Controller', () => {
         name: 'Bingo',
         email: 'bingo@foo.com',
         message: 'Bingo',
+      })
+      .expect(200);
+  });
+
+  it('should save submission "product"', async () => {
+    // arrange
+    const token = generateHMACToken(
+      Math.floor(Date.now() / 1000) - 5,
+      config.tokenSecret,
+    );
+
+    // act && assert
+    await request(app)
+      .post('/api/submission')
+      .send({
+        token: token,
+        name: 'Bingo',
+        email: 'bingo@foo.com',
+        message: 'Bingo',
+        product_name: 'Bingo',
+        product_url: 'https://bingo.foo',
       })
       .expect(200);
   });
