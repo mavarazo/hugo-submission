@@ -1,0 +1,11 @@
+### GET
+GET http://localhost:3000/api/token
+
+###
+POST http://localhost:3000/api/submission
+Content-Type: application/json
+
+{
+  "website": "bingo"
+}
+
