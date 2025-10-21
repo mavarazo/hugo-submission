@@ -36,5 +36,5 @@ export const saveSubmission = function (
     loggerConfig.info('Send submission email successfully.'),
   );
 
-  res.status(200).send();
+  res.status(200).json({ success: true, message: 'Submission send.' });
 };
